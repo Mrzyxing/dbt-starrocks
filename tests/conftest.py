@@ -14,10 +14,10 @@ def dbt_profile_target():
 #        'threads': 1,
 #        'server': 'localhost',
         'username': 'root',
-        'password': '',
-        'port': 9030,
-        'host': 'localhost',
+        'password': 'a1d6a1aa-e03a-4d41-a777-0356281789d4',
+        'port': 80,
+        'host': '10.58.129.157',
 #        'version': '3.0',
-#        'schema': 'dbt',
+        'schema': 'dev_zyxingdb',
 #        'ssl_disabled': True
     }

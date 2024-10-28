@@ -39,7 +39,7 @@ this_directory = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(this_directory, "README.md")) as f:
     long_description = f.read()
 
-package_name = "dbt-starrocks"
+package_name = "dbt-starrocks-ctrip"
 # make sure this always matches dbt/adapters/starrocks/__version__.py
 package_version = "1.6.3"
 description = """The Starrocks adapter plugin for dbt"""

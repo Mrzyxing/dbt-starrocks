@@ -3,6 +3,18 @@
     {{ get_create_materialized_view_as_sql(relation, sql) }}
 {% endmacro %}
 
+{% macro starrocks__alter_materialized_view_swap(relation, sql, existing_relation, backup_relation, intermediate_relation) %}
+    {{ starrocks__get_drop_relation_sql(backup_relation) }}
+    {% call statement(name="dbt_alter_mv") %}
+        {{ get_create_materialized_view_as_sql(backup_relation, sql) }}
+    {% endcall %}
+    {{ starrocks__alter_materialized_view_swap_sql(existing_relation, backup_relation) }}
+{% endmacro %}
+
+{% macro starrocks__alter_materialized_view_swap_sql(old_mv, new_mv) %}
+    alter materialized view {{ old_mv }} swap with {{ new_mv.identifier }};
+{% endmacro %}
+
 {% macro starrocks__drop_materialized_view(relation) -%}
     drop materialized view if exists {{ relation }};
 {%- endmacro %}
@@ -74,6 +86,6 @@
     intermediate_relation
 ) %}
 
-    {{ get_replace_materialized_view_as_sql(relation, sql, existing_relation, backup_relation, intermediate_relation) }}
+    {{ starrocks__alter_materialized_view_swap(relation, sql, existing_relation, backup_relation, intermediate_relation) }}
 
 {% endmacro %}
